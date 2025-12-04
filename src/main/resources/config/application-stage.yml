@@ -28,6 +28,11 @@ spring:
     password: AVNS_Dw0mJXT6mnivz3bN70_
     hikari:
       poolName: Hikari
+      minimum-idle: 3
+      maximum-pool-size: 6
+      idle-timeout: 30000
+      max-lifetime: 600000
+      connection-timeout: 20000      
       auto-commit: false
   thymeleaf:
     cache: true
@@ -94,3 +99,6 @@ billing:
     presignExpirySeconds: 300
     maxBytes: 52428800
     allowed: application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/jpeg,image/png,text/plain
+
+    springdoc:
+      pre-loading-enabled: true
