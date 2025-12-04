@@ -1,0 +1,24 @@
+name: Build Changes
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+      
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to DigitalOcean Container Registry
+        env:
+          DOCKER_USERNAME: "doctoken"
+          DOCKER_PASSWORD: ${{ secrets.DOCR_ACCESS_TOKEN }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login ${{ secrets.DOCR_REGISTRY_URL }} -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCR_REGISTRY_URL }}/asklepios-api-service:${{ github.sha }} .
