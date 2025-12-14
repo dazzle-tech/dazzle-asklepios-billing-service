@@ -3,12 +3,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: asklepios-billing-service
+    name: asklepiosdemo-billing-service
     namespace: asklepios-sandbox
 spec:
     type: ClusterIP
     selector:
-        app: asklepios-billing
+        app: asklepiosdemo-billing
     ports:
         - protocol: TCP
           port: 8080
@@ -18,21 +18,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: asklepios-billing
+    name: asklepiosdemo-billing
     namespace: asklepios-sandbox
 spec:
     selector:
         matchLabels:
-            app: asklepios-billing
+            app: asklepiosdemo-billing
     replicas: 1
     template:
         metadata:
             labels:
-                app: asklepios-billing
+                app: asklepiosdemo-billing
         spec:
             containers:
-                - name: asklepios-billing
-                  image: registry.digitalocean.com/asklepios/asklepios-billing:v2
+                - name: asklepiosdemo-billing
+                  image: registry.digitalocean.com/asklepios/asklepios-billing:r2
                   env:
                     - name: spring.profiles.active
                       value: stage,api-docs
